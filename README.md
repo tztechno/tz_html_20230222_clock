@@ -3,4 +3,4 @@ world clock with javascript
 
 It shows London, Tokyo and New York times.
 
-![clock]('./clock.png')
+![image](clock.png)
