@@ -9,3 +9,5 @@ It shows London, Tokyo and New York times.
 
 
  https://tztechno.github.io/tz_html_20230222_clock/
+
+ https://bit.ly/3UWmKny
