@@ -5,7 +5,7 @@ It shows London, Tokyo and New York times.
 
 ## view sample
 
-![image](clock.png)
+![image](clock2.png)
 
 
  https://tztechno.github.io/tz_html_20230222_clock/
