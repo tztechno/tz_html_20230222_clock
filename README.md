@@ -7,5 +7,8 @@ It shows London, Tokyo and New York times.
 
 ![image](clock2.png)
 
-https://tztechno.github.io/tz_html_20230222_clock/index3.html
+
+https://tztechno.github.io/tz_html_20230222_clock/index.html
+
+https://tztechno.github.io/tz_html_20230222_clock/index2.html
 
