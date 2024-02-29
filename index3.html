@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@IshiiStpete" />
+    <meta name="twitter:title" content="world clock">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/clock2.png">
+    
+    <title>World Clock</title>
+    
+    <style>
+      body {
+        padding-top: 4cm;
+      }
+      canvas {
+        position: relative;
+      }      
+      h2 {
+        margin-top: 0;
+      }
+        /* スタイルの設定 */
+        #clocks {
+            display: flex;
+            justify-content: space-around;
+        }
+      .clock {
+        display: inline-block;
+        margin-right: 1cm;
+      }      
+        .clock h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clocks">
+        <div class="clock" id="london">
+            <h2>LONDON</h2>
+            <canvas id="london-canvas" width="150" height="150"></canvas>
+            <p id="london-time"></p>
+        </div>
+        <div class="clock" id="tokyo">
+            <h2>TOKYO</h2>
+            <canvas id="tokyo-canvas" width="150" height="150"></canvas>
+            <p id="tokyo-time"></p>
+        </div>
+        <div class="clock" id="newyork">
+            <h2>NEW YORK</h2>
+            <canvas id="newyork-canvas" width="150" height="150"></canvas>
+            <p id="newyork-time"></p>
+        </div>
+    </div>
+
+    <script>
+
+        // 時計の描画
+        function drawClock(canvas, date) {
+            var ctx = canvas.getContext("2d");
+            var width = canvas.width;
+            var height = canvas.height;
+            var radius = Math.min(width, height) / 2 * 0.8;
+            var centerX = width / 2;
+            var centerY = height / 2;
+
+            // 画面をクリアする
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 外側の円
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            // 目盛り
+            for (var i = 1; i <= 12; i++) {
+                var angle = i * Math.PI / 6;
+                var x = centerX + radius * Math.sin(angle);
+                var y = centerY - radius * Math.cos(angle);
+                ctx.beginPath();
+                ctx.arc(x, y, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = "#333";
+                ctx.fill();
+            }
+
+            // 時針
+            var hour = date.getHours();
+            var hourAngle = (hour % 12) * Math.PI / 6;
+            var hourLength = radius * 0.5;
+            var hourX = centerX + hourLength * Math.sin(hourAngle);
+            var hourY = centerY - hourLength * Math.cos(hourAngle);
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(hourX, hourY);
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+                // 分針
+                var minute = date.getMinutes();
+                var minuteAngle = minute * Math.PI / 30;
+                var minuteLength = radius * 0.7;
+                var minuteX = centerX + minuteLength * Math.sin(minuteAngle);
+                var minuteY = centerY - minuteLength * Math.cos(minuteAngle);
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(minuteX, minuteY);
+                ctx.strokeStyle = "#333";
+                ctx.lineWidth = 5;
+                ctx.stroke();
+
+                // 秒針
+                var second = date.getSeconds();
+                var secondAngle = second * Math.PI / 30;
+                var secondLength = radius * 0.9;
+                var secondX = centerX + secondLength * Math.sin(secondAngle);
+                var secondY = centerY - secondLength * Math.cos(secondAngle);
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(secondX, secondY);
+                ctx.strokeStyle = "#f00";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            // 時刻の更新
+            function updateClock() {
+                var londonTime = new Date().toLocaleString("en-US", { timeZone: "Europe/London" });
+                var tokyoTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
+                var newYorkTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+
+                document.getElementById("london-time").innerHTML = londonTime;
+                document.getElementById("tokyo-time").innerHTML = tokyoTime;
+                document.getElementById("newyork-time").innerHTML = newYorkTime;
+
+                var londonCanvas = document.getElementById("london-canvas");
+                drawClock(londonCanvas, new Date(londonTime));
+
+                var tokyoCanvas = document.getElementById("tokyo-canvas");
+                drawClock(tokyoCanvas, new Date(tokyoTime));
+
+                var newYorkCanvas = document.getElementById("newyork-canvas");
+                drawClock(newYorkCanvas, new Date(newYorkTime));
+            }
+
+            // 1秒ごとに時刻を更新
+            setInterval(updateClock, 1000);
+        </script>
+  </body>
+</html>
