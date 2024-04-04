@@ -3,53 +3,57 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@IshiiStpete" />
     <meta name="twitter:title" content="stop watch">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/clock3.png">
-    
-    <title>World Clock</title>
-    
+    <title>Stop Watch</title>
     <style>
-      body {
-        padding-top: 4cm;
-      }
-      canvas {
-        position: relative;
-      }      
-      h2 {
-        margin-top: 0;
-      }
+        body {
+            padding-top: 4cm;
+        }
+        canvas {
+            position: relative;
+        }
+        h2 {
+            margin-top: 0;
+        }
         /* スタイルの設定 */
         #clocks {
             display: flex;
             justify-content: space-around;
         }
-      .clock {
-        display: inline-block;
-        margin-right: 1cm;
-      }      
+        .clock {
+            display: inline-block;
+            margin-right: 1cm;
+        }
         .clock h2 {
             margin-top: 0;
+        }
+        .btn {
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
     <div id="clocks">
-
         <div class="clock" id="tokyo">
             <h2>:::::: STOP WATCH ::::::</h2>
             <canvas id="tokyo-canvas" width="150" height="150"></canvas>
             <p id="tokyo-time"></p>
+            <button class="btn" onclick="startStopwatch()">Start</button>
+            <button class="btn" onclick="stopStopwatch()">Stop</button>
+            <button class="btn" onclick="resetStopwatch()">Reset</button>
         </div>
-
     </div>
 
     <script>
+        var stopwatchInterval;
+        var startTime;
+        var elapsedTime = 0;
+        var isRunning = false;
 
-        // 時計の描画
         function drawClock(canvas, date) {
             var ctx = canvas.getContext("2d");
             var width = canvas.width;
@@ -79,59 +83,46 @@
                 ctx.fill();
             }
 
-            // 時針
-            var hour = date.getHours();
-            var hourAngle = (hour % 12) * Math.PI / 6;
-            var hourLength = radius * 0.5;
-            var hourX = centerX + hourLength * Math.sin(hourAngle);
-            var hourY = centerY - hourLength * Math.cos(hourAngle);
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(hourX, hourY);
-            ctx.strokeStyle = "#333";
-            ctx.lineWidth = 10;
-            ctx.stroke();
-
-                // 分針
-                var minute = date.getMinutes();
-                var minuteAngle = minute * Math.PI / 30;
-                var minuteLength = radius * 0.7;
-                var minuteX = centerX + minuteLength * Math.sin(minuteAngle);
-                var minuteY = centerY - minuteLength * Math.cos(minuteAngle);
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.lineTo(minuteX, minuteY);
-                ctx.strokeStyle = "#333";
-                ctx.lineWidth = 5;
-                ctx.stroke();
-
-                // 秒針
-                var second = date.getSeconds();
-                var secondAngle = second * Math.PI / 30;
-                var secondLength = radius * 0.9;
-                var secondX = centerX + secondLength * Math.sin(secondAngle);
-                var secondY = centerY - secondLength * Math.cos(secondAngle);
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.lineTo(secondX, secondY);
-                ctx.strokeStyle = "#f00";
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            }
-
             // 時刻の更新
-            function updateClock() {
+            var elapsedSeconds = Math.floor(date / 1000);
+            var minutes = Math.floor(elapsedSeconds / 60);
+            var seconds = elapsedSeconds % 60;
 
-                var tokyoTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
-                document.getElementById("tokyo-time").innerHTML = tokyoTime;
+            // 表示
+            ctx.font = "20px Arial";
+            ctx.fillStyle = "#333";
+            ctx.textAlign = "center";
+            ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2), centerX, centerY + 10);
+        }
 
-                var tokyoCanvas = document.getElementById("tokyo-canvas");
-                drawClock(tokyoCanvas, new Date(tokyoTime));
+        function updateClock() {
+            var currentTime = Date.now() - startTime + elapsedTime;
+            var tokyoCanvas = document.getElementById("tokyo-canvas");
+            drawClock(tokyoCanvas, currentTime);
+        }
 
+        function startStopwatch() {
+            if (!isRunning) {
+                startTime = Date.now();
+                stopwatchInterval = setInterval(updateClock, 1000);
+                isRunning = true;
             }
+        }
 
-            // 1秒ごとに時刻を更新
-            setInterval(updateClock, 1000);
-        </script>
-  </body>
+        function stopStopwatch() {
+            if (isRunning) {
+                clearInterval(stopwatchInterval);
+                elapsedTime += Date.now() - startTime;
+                isRunning = false;
+            }
+        }
+
+        function resetStopwatch() {
+            stopStopwatch();
+            elapsedTime = 0;
+            updateClock();
+        }
+    </script>
+</body>
+
 </html>
