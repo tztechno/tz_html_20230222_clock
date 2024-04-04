@@ -39,7 +39,7 @@
 <body>
     <div id="clocks">
         <div class="clock" id="tokyo">
-            <h3>STOP WATCH</h3>
+            <h2>STOP WATCH</h2>
             <canvas id="tokyo-canvas" width="150" height="150"></canvas>
             <p id="tokyo-time"></p>
             <button class="btn" onclick="startStopwatch()">Start</button>
@@ -89,7 +89,7 @@
             var seconds = elapsedSeconds % 60;
 
             // 表示
-            ctx.font = "20px Arial";
+            ctx.font = "24px Arial";
             ctx.fillStyle = "#333";
             ctx.textAlign = "center";
             ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2), centerX, centerY + 10);
