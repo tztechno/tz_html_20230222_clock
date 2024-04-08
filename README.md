@@ -16,5 +16,5 @@ https://tztechno.github.io/tz_html_20230222_clock/index3.html
 
 https://tztechno.github.io/tz_html_20230222_clock/stopwatch0.html
 
-https://tztechno.github.io/tz_html_20230222_clock/counter0.html
+https://tztechno.github.io/tz_html_20230222_clock/counter1.html
 
