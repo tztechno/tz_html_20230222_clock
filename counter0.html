@@ -7,7 +7,7 @@
     <meta name="twitter:site" content="@IshiiStpete" />
     <meta name="twitter:title" content="counter">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/stop.png">
-    <title>Stop Watch</title>
+    <title>Counter</title>
     <style>
         body {
             padding-top: 4cm;
@@ -33,6 +33,11 @@
         .btn {
             margin-top: 10px;
         }
+        #counter {
+            font-size: 48px;
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -46,6 +51,12 @@
             <button class="btn" onclick="stopStopwatch()">Stop</button>
             <button class="btn" onclick="resetStopwatch()">Lap</button>
         </div>
+        <div class="clock">
+            <h2>Counter</h2>
+            <div id="counter">0</div>
+            <button class="btn" onclick="addToCounter()">ADD</button>
+            <button class="btn" onclick="resetCounter()">Reset</button>
+        </div>
     </div>
 
     <script>
@@ -53,6 +64,7 @@
         var startTime;
         var elapsedTime = 0;
         var isRunning = false;
+        var counterValue = 0;
 
         function drawClock(canvas, date) {
             var ctx = canvas.getContext("2d");
@@ -92,37 +104,5 @@
             ctx.font = "24px Arial";
             ctx.fillStyle = "#333";
             ctx.textAlign = "center";
-            ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2), centerX, centerY + 10);
-        }
+            ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" +
 
-        function updateClock() {
-            var currentTime = Date.now() - startTime + elapsedTime;
-            var tokyoCanvas = document.getElementById("tokyo-canvas");
-            drawClock(tokyoCanvas, currentTime);
-        }
-
-        function startStopwatch() {
-            if (!isRunning) {
-                startTime = Date.now();
-                stopwatchInterval = setInterval(updateClock, 1000);
-                isRunning = true;
-            }
-        }
-
-        function stopStopwatch() {
-            if (isRunning) {
-                clearInterval(stopwatchInterval);
-                elapsedTime += Date.now() - startTime;
-                isRunning = false;
-            }
-        }
-
-        function resetStopwatch() {
-            stopStopwatch();
-            elapsedTime = 0;
-            updateClock();
-        }
-    </script>
-</body>
-
-</html>
