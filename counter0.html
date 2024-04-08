@@ -19,20 +19,6 @@
             margin-top: 0;
         }
         /* スタイルの設定 */
-        #clocks {
-            display: flex;
-            justify-content: space-around;
-        }
-        .clock {
-            display: inline-block;
-            margin-right: 1cm;
-        }
-        .clock h2 {
-            margin-top: 0;
-        }
-        .btn {
-            margin-top: 10px;
-        }
         #counter {
             font-size: 48px;
             margin-top: 20px;
@@ -42,16 +28,8 @@
 </head>
 
 <body>
-    <div id="clocks">
-        <div class="clock" id="tokyo">
-            <h2>STOP WATCH</h2>
-            <canvas id="tokyo-canvas" width="150" height="150"></canvas>
-            <p id="tokyo-time"></p>
-            <button class="btn" onclick="startStopwatch()">Start</button>
-            <button class="btn" onclick="stopStopwatch()">Stop</button>
-            <button class="btn" onclick="resetStopwatch()">Lap</button>
-        </div>
-        <div class="clock">
+    <div>
+        <div>
             <h2>Counter</h2>
             <div id="counter">0</div>
             <button class="btn" onclick="addToCounter()">ADD</button>
@@ -60,49 +38,18 @@
     </div>
 
     <script>
-        var stopwatchInterval;
-        var startTime;
-        var elapsedTime = 0;
-        var isRunning = false;
-        var counterValue = 0;
+        function addToCounter() {
+            counterValue++;
+            document.getElementById("counter").textContent = counterValue;
+        }
 
-        function drawClock(canvas, date) {
-            var ctx = canvas.getContext("2d");
-            var width = canvas.width;
-            var height = canvas.height;
-            var radius = Math.min(width, height) / 2 * 0.8;
-            var centerX = width / 2;
-            var centerY = height / 2;
+        function resetCounter() {
+            counterValue = 0;
+            document.getElementById("counter").textContent = counterValue;
+        }
+    </script>
+</body>
 
-            // 画面をクリアする
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+</html>
 
-            // 外側の円
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.strokeStyle = "#333";
-            ctx.lineWidth = 10;
-            ctx.stroke();
-
-            // 目盛り
-            for (var i = 1; i <= 12; i++) {
-                var angle = i * Math.PI / 6;
-                var x = centerX + radius * Math.sin(angle);
-                var y = centerY - radius * Math.cos(angle);
-                ctx.beginPath();
-                ctx.arc(x, y, 10, 0, 2 * Math.PI);
-                ctx.fillStyle = "#333";
-                ctx.fill();
-            }
-
-            // 時刻の更新
-            var elapsedSeconds = Math.floor(date / 1000);
-            var minutes = Math.floor(elapsedSeconds / 60);
-            var seconds = elapsedSeconds % 60;
-
-            // 表示
-            ctx.font = "24px Arial";
-            ctx.fillStyle = "#333";
-            ctx.textAlign = "center";
-            ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" +
 
