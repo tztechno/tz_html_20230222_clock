@@ -18,4 +18,4 @@ https://tztechno.github.io/tz_html_20230222_clock/stopwatch0.html
 
 https://tztechno.github.io/tz_html_20230222_clock/counter1.html
 
-https://tztechno.github.io/tz_html_20230222_clock/slot0.html
+https://tztechno.github.io/tz_html_20230222_clock/slot1.html
