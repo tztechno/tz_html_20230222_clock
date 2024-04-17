@@ -42,7 +42,7 @@
 <body>
     <div>
         <div>
-            <h2>Slot</h2> <!-- "Counter" の代わりに "Slot" を表示 -->
+            <h2>Slot</h2>
             <div id="counter"></div>
             <div class="btn-container">
                 <button class="btn" onclick="spinSlot()">Slot</button>
@@ -52,11 +52,11 @@
 
     <script>
         function spinSlot() {
-            var slotValues = []; // ランダムな3つの数字を格納する配列
+            var slotValues = []; 
             for (var i = 0; i < 3; i++) {
-                slotValues.push(Math.floor(Math.random() * 10)); // 0から9のランダムな数字を生成して配列に追加
+                slotValues.push(Math.floor(Math.random() * 10)); 
             }
-            document.getElementById("counter").textContent = slotValues.join(''); // 配列の値をコンマなしで表示
+            document.getElementById("counter").textContent = slotValues.join(''); 
         }
     </script>
 </body>
