@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@IshiiStpete" />
+    <meta name="twitter:title" content="counter">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/counter.png">
+    <title>Counter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            position: relative;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        /* スタイルの設定 */
+        #counter {
+            font-size: 48px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h2>Counter</h2>
+            <div id="counter">0</div>
+            <div class="btn-container">
+                <button class="btn" onclick="addToCounter()">Add</button>
+                <button class="btn" onclick="resetCounter()">Reset</button>
+                <button class="btn" onclick="spinSlot()">Slot</button> <!-- Slotボタンを追加 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var counterValue = 0;
+
+        function addToCounter() {
+            counterValue++;
+            document.getElementById("counter").textContent = counterValue;
+        }
+
+        function resetCounter() {
+            counterValue = 0;
+            document.getElementById("counter").textContent = counterValue;
+        }
+
+        function spinSlot() {
+            var slotValues = []; // ランダムな3つの数字を格納する配列
+            for (var i = 0; i < 3; i++) {
+                slotValues.push(Math.floor(Math.random() * 10)); // 0から9のランダムな数字を生成して配列に追加
+            }
+            document.getElementById("counter").textContent = slotValues.join(', '); // 配列の値をカンマ区切りで表示
+        }
+    </script>
+</body>
+
+</html>
