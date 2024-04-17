@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@IshiiStpete" />
-    <meta name="twitter:title" content="counter">
+    <meta name="twitter:title" content="slot">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/counter.png">
-    <title>Counter</title>
+    <title>Slot</title>
     <style>
         body {
             display: flex;
@@ -42,37 +42,17 @@
 <body>
     <div>
         <div>
-            <h2>Counter</h2>
-            <div id="counter">0</div>
+            <h2>Slot</h2> <!-- "Counter" の代わりに "Slot" を表示 -->
+            <div id="counter"></div>
             <div class="btn-container">
-                <button class="btn" onclick="addToCounter()">Add</button>
-                <button class="btn" onclick="resetCounter()">Reset</button>
-                <button class="btn" onclick="spinSlot()">Slot</button> <!-- Slotボタンを追加 -->
+                <button class="btn" onclick="spinSlot()">Slot</button>
             </div>
         </div>
     </div>
 
     <script>
-        var counterValue = 0;
-
-        function addToCounter() {
-            counterValue++;
-            document.getElementById("counter").textContent = counterValue;
-        }
-
-        function resetCounter() {
-            counterValue = 0;
-            document.getElementById("counter").textContent = counterValue;
-        }
-
         function spinSlot() {
             var slotValues = []; // ランダムな3つの数字を格納する配列
             for (var i = 0; i < 3; i++) {
-                slotValues.push(Math.floor(Math.random() * 10)); // 0から9のランダムな数字を生成して配列に追加
-            }
-            document.getElementById("counter").textContent = slotValues.join(', '); // 配列の値をカンマ区切りで表示
-        }
-    </script>
-</body>
+                slotValues
 
-</html>
