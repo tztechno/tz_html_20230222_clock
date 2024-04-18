@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@IshiiStpete" />
+    <meta name="twitter:title" content="slot">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/slot.png">
+    <title>Slot</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            position: relative;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        /* スタイルの設定 */
+        #counter {
+            font-size: 48px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #congratulation {
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+            display: none; /* 初期状態では非表示にする */
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h2>Slot</h2>
+            <div id="counter"></div>
+            <div id="congratulation">Congratulation!</div> <!-- Congratulation! を表示するための要素を追加 -->
+            <div class="btn-container">
+                <button class="btn" onclick="spinSlot()">Slot</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function spinSlot() {
+            var slotValues = []; 
+            for (var i = 0; i < 3; i++) {
+                slotValues.push(Math.floor(Math.random() * 10)); 
+            }
+            document.getElementById("counter").textContent = slotValues.join(''); 
+            if (slotValues[0] === slotValues[1] && slotValues[1] === slotValues[2]) {
+                document.getElementById("congratulation").style.display = "block"; // Congratulation! を表示する
+            } else {
+                document.getElementById("congratulation").style.display = "none"; // Congratulation! を非表示にする
+            }
+        }
+    </script>
+</body>
+
+</html>
