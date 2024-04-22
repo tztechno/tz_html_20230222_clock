@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@IshiiStpete" />
+    <meta name="twitter:title" content="Timer">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/tztechno/tz_html_20230222_clock/main/stop.png">
+    <title>Timer</title>
+    <style>
+        body {
+            padding-top: 4cm;
+        }
+        canvas {
+            position: relative;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        /* スタイルの設定 */
+        #clocks {
+            display: flex;
+            justify-content: space-around;
+        }
+        .clock {
+            display: inline-block;
+            margin-right: 1cm;
+        }
+        .clock h2 {
+            margin-top: 0;
+        }
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clocks">
+        <div class="clock" id="timer">
+            <h2>Timer</h2>
+            <canvas id="timer-canvas" width="150" height="150"></canvas>
+            <input type="number" id="timer-input" value="3" min="1" max="60"> minutes
+            <button class="btn" onclick="startTimer()">Start</button>
+            <button class="btn" onclick="stopTimer()">Stop</button>
+        </div>
+    </div>
+
+    <script>
+        var timerInterval;
+        var startTime;
+        var elapsedTime = 0;
+        var isRunning = false;
+        var duration = 3 * 60 * 1000; // Default duration is 3 minutes
+
+        function drawClock(canvas, remainingTime) {
+            var ctx = canvas.getContext("2d");
+            var width = canvas.width;
+            var height = canvas.height;
+            var radius = Math.min(width, height) / 2 * 0.8;
+            var centerX = width / 2;
+            var centerY = height / 2;
+
+            // 画面をクリアする
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 外側の円
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            // 目盛り
+            for (var i = 1; i <= 12; i++) {
+                var angle = i * Math.PI / 6;
+                var x = centerX + radius * Math.sin(angle);
+                var y = centerY - radius * Math.cos(angle);
+                ctx.beginPath();
+                ctx.arc(x, y, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = "#333";
+                ctx.fill();
+            }
+
+            // 時刻の更新
+            var minutes = Math.floor(remainingTime / 60000);
+            var seconds = Math.floor((remainingTime % 60000) / 1000);
+
+            // 表示
+            ctx.font = "24px Arial";
+            ctx.fillStyle = "#333";
+            ctx.textAlign = "center";
+            ctx.fillText(("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2), centerX, centerY + 10);
+        }
+
+        function updateTimer() {
+            var currentTime = Date.now();
+            var remainingTime = duration - (currentTime - startTime + elapsedTime);
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                drawClock(document.getElementById("timer-canvas"), 0);
+                document.getElementById("timer-input").disabled = false;
+                alert("TIME UP!");
+            } else {
+                drawClock(document.getElementById("timer-canvas"), remainingTime);
+            }
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                duration = parseInt(document.getElementById("timer-input").value) * 60 * 1000;
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
+                isRunning = true;
+                document.getElementById("timer-input").disabled = true;
+            }
+        }
+
+        function stopTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                elapsedTime += Date.now() - startTime;
+                isRunning = false;
+                document.getElementById("timer-input").disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
