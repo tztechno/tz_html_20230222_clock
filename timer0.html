@@ -33,6 +33,10 @@
         .btn {
             margin-top: 10px;
         }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -41,9 +45,11 @@
         <div class="clock" id="timer">
             <h2>Timer</h2>
             <canvas id="timer-canvas" width="150" height="150"></canvas>
-            <input type="number" id="timer-input" value="3" min="1" max="60"> minutes
-            <button class="btn" onclick="startTimer()">Start</button>
-            <button class="btn" onclick="stopTimer()">Stop</button>
+            <div class="controls">
+                <input type="number" id="timer-input" value="3" min="1" max="60"> minutes
+                <button class="btn" onclick="startTimer()">Start</button>
+                <button class="btn" onclick="stopTimer()">Stop</button>
+            </div>
         </div>
     </div>
 
@@ -129,3 +135,4 @@
 </body>
 
 </html>
+
