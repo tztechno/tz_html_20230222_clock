@@ -33,6 +33,17 @@
         .btn {
             margin-top: 10px;
         }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #time-up-message {
+            font-size: 24px;
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+            display: none; /* Initially hide the time-up message */
+        }
     </style>
 </head>
 
@@ -41,11 +52,14 @@
         <div class="clock" id="timer">
             <h2>Timer</h2>
             <canvas id="timer-canvas" width="150" height="150"></canvas>
-            <input type="number" id="timer-input" value="3" min="1" max="60"> minutes
-            <button class="btn" onclick="startTimer()">Start</button>
-            <button class="btn" onclick="stopTimer()">Stop</button>
         </div>
     </div>
+    <div class="controls">
+        <input type="number" id="timer-input" value="3" min="1" max="60"> minutes
+        <button class="btn" onclick="startTimer()">Start</button>
+        <button class="btn" onclick="stopTimer()">Stop</button>
+    </div>
+    <div id="time-up-message">TIME UP!</div>
 
     <script>
         var timerInterval;
@@ -101,7 +115,7 @@
                 clearInterval(timerInterval);
                 drawClock(document.getElementById("timer-canvas"), 0);
                 document.getElementById("timer-input").disabled = false;
-                alert("TIME UP!");
+                document.getElementById("time-up-message").style.display = "block"; // Display the time-up message
             } else {
                 drawClock(document.getElementById("timer-canvas"), remainingTime);
             }
@@ -114,6 +128,7 @@
                 timerInterval = setInterval(updateTimer, 1000);
                 isRunning = true;
                 document.getElementById("timer-input").disabled = true;
+                document.getElementById("time-up-message").style.display = "none"; // Hide time-up message when timer starts
             }
         }
 
@@ -123,6 +138,7 @@
                 elapsedTime += Date.now() - startTime;
                 isRunning = false;
                 document.getElementById("timer-input").disabled = false;
+                document.getElementById("time-up-message").style.display = "none"; // Hide time-up message when timer stops
             }
         }
     </script>
